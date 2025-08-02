@@ -1,56 +1,88 @@
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class MonoPlayer : MonoBehaviour
+public class MonoPlayer : MonoBehaviour, IHittable
 {
-    PlayerAnimController animController;
-    Rigidbody2D rigid;
+    private PlayerAnimController _animController;
+    private Rigidbody2D _rigidbody2D;
 
-    private bool isGrounded;
-    private bool isSliding;
-    [SerializeField] private float jumpPower;
+    [SerializeField] private MonoPlayerAttackCollision attackColider;
+
+    private bool _isGrounded;
+    private bool _isSliding;
+
+    public int Hp { get; private set; }
+
+    [field: SerializeField] public PlayerData PlayerData { get; private set; }
 
     private void Start()
     {
-        isGrounded = true;
-        isSliding = false;
-        animController = new PlayerAnimController(GetComponent<Animator>());
-        animController.SetAnimState(PlayerAnimState.Run);
+        _isGrounded = true;
+        _isSliding = false;
+        _animController = new PlayerAnimController(GetComponent<Animator>());
+        _animController.SetAnimState(PlayerAnimState.Run);
 
-        rigid = GetComponent<Rigidbody2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        Hp = PlayerData.hp;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         {
-            isSliding = false;
-            isGrounded = false;
-            rigid.AddForceY(jumpPower, ForceMode2D.Impulse);
-            animController.SetAnimState(PlayerAnimState.Jump);
+            _isSliding = false;
+            _isGrounded = false;
+            _rigidbody2D.AddForceY(PlayerData.jumpPower, ForceMode2D.Impulse);
+            _animController.SetAnimState(PlayerAnimState.Jump);
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
-            animController.SetAnimState(PlayerAnimState.Attack);
+            Attack();
         }
-        else if (Input.GetKey(KeyCode.D) && isGrounded && !isSliding)
+        else if (Input.GetKey(KeyCode.D) && _isGrounded && !_isSliding)
         {
-            isSliding = true;
-            animController.SetAnimState(PlayerAnimState.Slide);
+            _isSliding = true;
+            _animController.SetAnimState(PlayerAnimState.Slide);
         }
-        else if (Input.GetKeyUp(KeyCode.D) && isSliding)
+        else if (Input.GetKeyUp(KeyCode.D) && _isSliding)
         {
-            isSliding = false;
-            animController.SetAnimState((PlayerAnimState.Run));
+            _isSliding = false;
+            _animController.SetAnimState((PlayerAnimState.Run));
         }
+    }
+
+    public void Hit(int damage = 1)
+    {
+        TakeDamage(damage);
+    }
+
+    private void TakeDamage(int damage)
+    {
+        Hp -= damage;
+        StartCoroutine(Evasion());
+    }
+
+    private void Attack()
+    {
+        _animController.SetAnimState(PlayerAnimState.Attack);
+    }
+
+    private IEnumerator Evasion()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Evasion");
+        GetComponent<SpriteRenderer>().color = Color.gray;
+        yield return new WaitForSeconds(PlayerData.evasionTime);
+        gameObject.layer = LayerMask.NameToLayer("Default");
+        GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") && !isGrounded)
+        if (collision.gameObject.CompareTag("Ground") && !_isGrounded)
         {
-            isGrounded = true;
-            animController.SetAnimState(PlayerAnimState.Run);
+            _isGrounded = true;
+            _animController.SetAnimState(PlayerAnimState.Run);
         }
     }
 }
