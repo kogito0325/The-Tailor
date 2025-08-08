@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 646ae3a312f91eb4d88f00304ec7cedd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  monsterData: {fileID: 11400000, guid: 1ab5f3733067eb64abc8f274ec7a4a5c, type: 2}
   flyPower: 10
   flyTime: 3
 --- !u!95 &1107364566678038494
