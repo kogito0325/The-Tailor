@@ -12,8 +12,11 @@ public class MonoPlayer : MonoBehaviour, IHittable
 
     private bool _isGrounded;
     private bool _isSliding;
+    private bool _isInEvasion => gameObject.layer == LayerMask.NameToLayer("Evasion");
 
     public int Hp { get; private set; }
+
+    private float _attackCoolTimer;
 
     [field: SerializeField] public PlayerData PlayerData { get; private set; }
 
@@ -28,6 +31,7 @@ public class MonoPlayer : MonoBehaviour, IHittable
         _rigidbody2D.linearDamping = PlayerData.linearDamping;
         _rigidbody2D.gravityScale = PlayerData.gravityScale;
         Hp = PlayerData.hp;
+        _attackCoolTimer = 0;
     }
 
     private void Update()
@@ -41,7 +45,8 @@ public class MonoPlayer : MonoBehaviour, IHittable
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
-            Attack();
+            if (_attackCoolTimer <= 0)
+                Attack();
         }
         else if (Input.GetKey(KeyCode.D) && _isGrounded && !_isSliding)
         {
@@ -53,6 +58,9 @@ public class MonoPlayer : MonoBehaviour, IHittable
             _isSliding = false;
             _animController.SetAnimState((PlayerAnimState.Run));
         }
+
+        if(_attackCoolTimer > 0)
+            _attackCoolTimer -= Time.deltaTime;
     }
 
     public void Hit(int damage = 1)
@@ -60,8 +68,9 @@ public class MonoPlayer : MonoBehaviour, IHittable
         TakeDamage(damage);
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
+        if (_isInEvasion) return;
         Hp -= damage;
         if (Hp <= 0) Die();
         else StartCoroutine(Evasion());
@@ -69,6 +78,7 @@ public class MonoPlayer : MonoBehaviour, IHittable
 
     private void Attack()
     {
+        _attackCoolTimer = PlayerData.attakCool;
         _animController.SetAnimState(PlayerAnimState.Attack);
     }
 

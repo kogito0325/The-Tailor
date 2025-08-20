@@ -1501,6 +1501,7 @@ MonoBehaviour:
   Levels:
   - {fileID: 6571654083694830646, guid: bd68f55d9cb0fee47a9a079142b2e2e5, type: 3}
   - {fileID: 6571654083694830646, guid: 9ac38352925c0b848956b11c8d9686d2, type: 3}
+  - {fileID: 6571654083694830646, guid: 7501220f2e819884b9687da827707c08, type: 3}
   interval: 2
 --- !u!4 &1049194552
 Transform:
