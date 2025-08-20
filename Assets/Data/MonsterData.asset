@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MonsterData
   m_EditorClassIdentifier: 
   hp: 1
-  speed: 15
+  speed: 20

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 3
   jumpPower: 35
-  attakCool: 0.5
+  attakCool: 0.15
   evasionTime: 1
-  linearDamping: 4
-  gravityScale: 5
+  linearDamping: 2
+  gravityScale: 8
