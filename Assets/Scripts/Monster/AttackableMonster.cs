@@ -13,6 +13,8 @@ public class AttackableMonster : Monster
         _player = FindAnyObjectByType<MonoPlayer>();
         _animator = GetComponent<Animator>();
         _isAttacked = false;
+
+        FindAnyObjectByType<MonoBoss>().AddStream();
     }
 
     protected override void Update()
