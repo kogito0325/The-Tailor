@@ -82,6 +82,16 @@ public class MonoPlayer : MonoBehaviour, IHittable
         _animController.SetAnimState(PlayerAnimState.Attack);
     }
 
+    public void ActivateAttackRange()
+    {
+        attackColider.ActivateAttackRange(true);
+    }
+
+    public void DeActivateAttackRange()
+    {
+        attackColider.ActivateAttackRange(false);
+    }
+
     private void Die()
     {
         enabled = false;
