@@ -34,6 +34,8 @@ public class Monster : MonoHittableObject
 
         // 임시 코드
         GetComponent<Animator>().Play("Fly");
+        SoundManager.Instance.PlaySound((int)SoundHelper.Sound.MonsterHit);
+        EffectManager.Instance.PlayEffect(transform, (int)MonoEffect.Type.MonsterHit);
         Destroy(gameObject, flyTime);
     }
 

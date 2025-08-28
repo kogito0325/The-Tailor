@@ -66,6 +66,8 @@ public class MonoPlayer : MonoBehaviour, IHittable
     public void Hit(int damage = 1)
     {
         TakeDamage(damage);
+        SoundManager.Instance.PlaySound((int)SoundHelper.Sound.PlayerHit);
+        EffectManager.Instance.PlayEffect(transform, (int)MonoEffect.Type.PlayerHit);
     }
 
     public void TakeDamage(int damage)
@@ -97,6 +99,8 @@ public class MonoPlayer : MonoBehaviour, IHittable
         enabled = false;
         gameObject.layer = LayerMask.NameToLayer("Evasion");
         _animController.SetAnimState(PlayerAnimState.Die);
+        SoundManager.Instance.PlaySound((int)SoundHelper.Sound.PlayerDead);
+        EffectManager.Instance.PlayEffect(transform, (int)MonoEffect.Type.PlayerDead);
     }
 
     private IEnumerator Evasion()
@@ -114,6 +118,7 @@ public class MonoPlayer : MonoBehaviour, IHittable
         {
             _isGrounded = true;
             _animController.SetAnimState(PlayerAnimState.Run);
+            SoundManager.Instance.PlaySound((int)SoundHelper.Sound.PlayerLand);
         }
     }
 }

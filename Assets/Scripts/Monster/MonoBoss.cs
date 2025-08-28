@@ -38,7 +38,7 @@ public class MonoBoss : MonoBehaviour
     {
         _spawnStream--;
         GetComponent<Animator>().Play("SpawnMonster");
-        yield return new WaitForSeconds(GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length / 2);
+        yield return new WaitForSeconds(GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length / 4);
         GetComponent<Animator>().Play("Idle");
         _spawnCoroutine = null;
     }

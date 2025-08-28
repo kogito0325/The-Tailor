@@ -1,8 +1,11 @@
 fileFormatVersion: 2
-guid: 91288b4d5fd7a3e45b025fb980c6a8b1
+guid: 848c31dea71e44e47835db9cc32dd09e
+labels:
+- Unitychan
+- 2d
+timeCreated: 1452840616
+licenseType: Pro
 NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 7400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
