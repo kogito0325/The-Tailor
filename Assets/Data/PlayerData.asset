@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5298133781201ed4980192756cf68c85, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  hp: 3
+  hp: 999
   jumpPower: 35
-  attakCool: 0.15
+  attakCool: 0
   evasionTime: 1
   linearDamping: 2
   gravityScale: 8
