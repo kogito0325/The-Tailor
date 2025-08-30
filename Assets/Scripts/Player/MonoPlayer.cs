@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Runtime.CompilerServices;
-using TMPro;
 using UnityEngine;
 
 public class MonoPlayer : MonoBehaviour, IHittable
@@ -34,29 +32,37 @@ public class MonoPlayer : MonoBehaviour, IHittable
         _attackCoolTimer = 0;
     }
 
+    
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+
+        // KeyManager에서 설정된 키를 가져와 사용합니다.
+        KeyCode jumpKey = KeyManager.instance.Keys[PlayerActionType.Jump];
+        KeyCode attackKey = KeyManager.instance.Keys[PlayerActionType.Attack];
+        KeyCode slideKey = KeyManager.instance.Keys[PlayerActionType.Slide];
+
+        if (Input.GetKeyDown(jumpKey) && _isGrounded)
         {
             _isSliding = false;
             _isGrounded = false;
             _rigidbody2D.AddForceY(PlayerData.jumpPower, ForceMode2D.Impulse);
             _animController.SetAnimState(PlayerAnimState.Jump);
         }
-        else if (Input.GetKeyDown(KeyCode.F))
+        else if (Input.GetKeyDown(attackKey))
         {
             if (_attackCoolTimer <= 0)
                 Attack();
         }
-        else if (Input.GetKey(KeyCode.D) && _isGrounded && !_isSliding)
+        else if (Input.GetKey(slideKey) && _isGrounded && !_isSliding)
         {
             _isSliding = true;
             _animController.SetAnimState(PlayerAnimState.Slide);
         }
-        else if (Input.GetKeyUp(KeyCode.D) && _isSliding)
+        else if (Input.GetKeyUp(slideKey) && _isSliding)
         {
             _isSliding = false;
-            _animController.SetAnimState((PlayerAnimState.Run));
+            _animController.SetAnimState(PlayerAnimState.Run);
         }
 
         if(_attackCoolTimer > 0)

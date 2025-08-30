@@ -3,23 +3,45 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private GameObject setting;
+    public static GameManager Instance;
+
+    private void Start()
     {
-        
+        if (Instance == null)
+            Instance = this;
+        else
+        {
+            Destroy(this);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(setting);
     }
 
-    // Update is called once per frame
+
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Time.timeScale = Time.timeScale == 1.0f ? 0 : 1.0f;
+            setting.SetActive(!setting.activeSelf);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(0);
         }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void MoveScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }

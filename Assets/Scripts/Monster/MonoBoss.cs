@@ -27,6 +27,8 @@ public class MonoBoss : MonoBehaviour
     public void TakeDamage(float damage)
     {
         Hp -= damage;
+        if (Hp <= 0)
+            GameManager.Instance.MoveScene("EndScene");
     }
     
     public void AddStream()
