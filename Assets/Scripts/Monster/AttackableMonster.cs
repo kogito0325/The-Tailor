@@ -30,7 +30,7 @@ public class AttackableMonster : Monster
     private bool CheckPlayerPosition(Transform playerTransform, out float playerPosY)
     {
         playerPosY = playerTransform.position.y >= transform.position.y ? 1 : -1;
-        return playerTransform.position.x >= transform.position.x;
+        return playerTransform.position.x + 0.2f >= transform.position.x;
     }
 
     private void Attack(MonoPlayer player, float attackDir, int damage)

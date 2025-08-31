@@ -11,7 +11,8 @@ public class SoundHelper : MonoBehaviour
         PlayerJump,
         PlayerAttack,
         PlayerDead,
-        PlayerHit
+        PlayerHit,
+        BossDead
     }
 
     public void PlaySound(Sound sound)

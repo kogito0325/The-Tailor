@@ -7,7 +7,10 @@ public class MonoEffect : MonoBehaviour
         MonsterHit,
         MonsterSpawn,
         PlayerHit,
-        PlayerDead
+        PlayerDead,
+        BossDead0,
+        BossDead1,
+        BossDead2
     }
 
     public void Destroy()

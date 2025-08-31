@@ -9,9 +9,18 @@ public class SoundManager : MonoBehaviour
 
     void Start()
     {
-        _audioSource = GetComponent<AudioSource>();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-        Instance = this;
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public void PlaySound(int soundId)
