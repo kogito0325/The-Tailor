@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class MonoPlayer : MonoBehaviour, IHittable
 {
@@ -7,6 +8,9 @@ public class MonoPlayer : MonoBehaviour, IHittable
     private Rigidbody2D _rigidbody2D;
 
     [SerializeField] private MonoPlayerAttackCollision attackColider;
+    [SerializeField] private Material flashMat;
+    private Material originMat;
+    //private Material curMat;
 
     private bool _isGrounded;
     private bool _isSliding;
@@ -30,6 +34,8 @@ public class MonoPlayer : MonoBehaviour, IHittable
         _rigidbody2D.gravityScale = PlayerData.gravityScale;
         Hp = PlayerData.hp;
         _attackCoolTimer = 0;
+
+        originMat = GetComponent<MeshRenderer>().material;
     }
 
     
@@ -58,6 +64,7 @@ public class MonoPlayer : MonoBehaviour, IHittable
         {
             _isSliding = true;
             _animController.SetAnimState(PlayerAnimState.Slide);
+            SoundManager.Instance.PlaySound((int)SoundHelper.Sound.PlayerSlide);
         }
         else if (Input.GetKeyUp(slideKey) && _isSliding)
         {
@@ -73,7 +80,8 @@ public class MonoPlayer : MonoBehaviour, IHittable
     {
         TakeDamage(damage);
         SoundManager.Instance.PlaySound((int)SoundHelper.Sound.PlayerHit);
-        EffectManager.Instance.PlayEffect(transform, (int)MonoEffect.Type.PlayerHit);
+        //EffectManager.Instance.PlayEffect(transform, (int)MonoEffect.Type.PlayerHit);
+        EffectManager.Instance.PlayEffect(new Vector2(transform.position.x, transform.position.y + 2f), (int)MonoEffect.Type.PlayerHit);
     }
 
     public void TakeDamage(int damage)
@@ -88,6 +96,11 @@ public class MonoPlayer : MonoBehaviour, IHittable
     {
         _attackCoolTimer = PlayerData.attakCool;
         _animController.SetAnimState(PlayerAnimState.Attack);
+    }
+
+    public void OnAttackFinished()
+    {
+        _animController.SetAnimState(PlayerAnimState.Run);
     }
 
     public void ActivateAttackRange()
@@ -112,16 +125,19 @@ public class MonoPlayer : MonoBehaviour, IHittable
     private IEnumerator Evasion()
     {
         gameObject.layer = LayerMask.NameToLayer("Evasion");
-        GetComponent<SpriteRenderer>().color = Color.gray;
+        //GetComponent<SpriteRenderer>().color = Color.gray;
+        //GetComponent<MeshRenderer>().material = flashMat;
         yield return new WaitForSeconds(PlayerData.evasionTime);
         gameObject.layer = LayerMask.NameToLayer("Default");
-        GetComponent<SpriteRenderer>().color = Color.white;
+        //GetComponent<SpriteRenderer>().color = Color.white;
+        //GetComponent<MeshRenderer>().material = originMat;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground") && !_isGrounded && Hp > 0)
         {
+            _rigidbody2D.linearVelocityY = 0;
             _isGrounded = true;
             _animController.SetAnimState(PlayerAnimState.Run);
             SoundManager.Instance.PlaySound((int)SoundHelper.Sound.PlayerLand);
