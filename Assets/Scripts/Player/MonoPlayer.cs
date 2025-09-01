@@ -8,8 +8,8 @@ public class MonoPlayer : MonoBehaviour, IHittable
     private Rigidbody2D _rigidbody2D;
 
     [SerializeField] private MonoPlayerAttackCollision attackColider;
-    [SerializeField] private Material flashMat;
-    private Material originMat;
+    //[SerializeField] private Material flashMat;
+    //private Material originMat;
     //private Material curMat;
 
     private bool _isGrounded;
@@ -35,7 +35,7 @@ public class MonoPlayer : MonoBehaviour, IHittable
         Hp = PlayerData.hp;
         _attackCoolTimer = 0;
 
-        originMat = GetComponent<MeshRenderer>().material;
+        //originMat = GetComponent<MeshRenderer>().material;
     }
 
     
@@ -80,7 +80,6 @@ public class MonoPlayer : MonoBehaviour, IHittable
     {
         TakeDamage(damage);
         SoundManager.Instance.PlaySound((int)SoundHelper.Sound.PlayerHit);
-        //EffectManager.Instance.PlayEffect(transform, (int)MonoEffect.Type.PlayerHit);
         EffectManager.Instance.PlayEffect(new Vector2(transform.position.x, transform.position.y + 2f), (int)MonoEffect.Type.PlayerHit);
     }
 
@@ -96,11 +95,6 @@ public class MonoPlayer : MonoBehaviour, IHittable
     {
         _attackCoolTimer = PlayerData.attakCool;
         _animController.SetAnimState(PlayerAnimState.Attack);
-    }
-
-    public void OnAttackFinished()
-    {
-        _animController.SetAnimState(PlayerAnimState.Run);
     }
 
     public void ActivateAttackRange()

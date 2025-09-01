@@ -261,6 +261,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: slider
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 516
+        width: 401
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 20, y: 16, z: 20, w: 19}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa3ee7f0907ec0549a15413396cd6923
+      internalID: 1820227238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slider_btn
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 659
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e11241b3f67cda6409f25da5b7d2613f
+      internalID: -1046982918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -275,7 +319,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\uC0C8 \uBC84\uD2BC UI \uC608\uC81C_0": 3744902984478292615
+      slider: 3744902984478292615
+      slider_btn: -1046982918
       "\uC0C8 \uBC84\uD2BC UI \uC608\uC81C_1": -7920643829302074320
       "\uC0C8 \uBC84\uD2BC UI \uC608\uC81C_10": 5017727874933495436
       "\uC0C8 \uBC84\uD2BC UI \uC608\uC81C_11": -205893155108191806
