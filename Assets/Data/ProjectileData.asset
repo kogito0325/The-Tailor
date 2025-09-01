@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ProjectileData
   m_EditorClassIdentifier: 
   hp: 1
-  speed: 30
+  speed: 35
