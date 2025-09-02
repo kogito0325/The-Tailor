@@ -20,7 +20,7 @@ public class LevelSpawner : MonoBehaviour
 
     private void SpawnLevel(GameObject level)
     {
-        Instantiate(level, transform);
+        Destroy(Instantiate(level, transform), 10f);
     }
 
     private IEnumerator SpawnRoutine(float interval)

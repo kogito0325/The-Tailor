@@ -12,8 +12,7 @@ public class Monster : MonoHittableObject
 
     protected float _speed;
     
-    [SerializeField] private float flyPower;
-    [SerializeField] private float flyTime;
+    [SerializeField] private float destroyTime;
 
     protected override void Start()
     {
@@ -30,13 +29,12 @@ public class Monster : MonoHittableObject
     {
         Die();
         _rigidbody2D.linearVelocity = Vector3.zero;
-        _rigidbody2D.AddForce((Vector2.right + Vector2.up).normalized * flyPower, ForceMode2D.Impulse);
 
         // 임시 코드
-        GetComponent<Animator>().Play("Fly");
+        GetComponent<Animator>().Play("Dead");
         SoundManager.Instance.PlaySound((int)SoundHelper.Sound.MonsterHit);
         EffectManager.Instance.PlayEffect(transform, (int)MonoEffect.Type.MonsterHit);
-        Destroy(gameObject, flyTime);
+        Destroy(gameObject, destroyTime);
     }
 
     private void Move()

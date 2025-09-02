@@ -39,9 +39,11 @@ public class MonoBoss : MonoBehaviour
     private IEnumerator IESpawnMonster()
     {
         _spawnStream--;
-        GetComponent<Animator>().Play("SpawnMonster");
-        yield return new WaitForSeconds(GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length / 4);
-        GetComponent<Animator>().Play("Idle");
+        //GetComponent<Animator>().Play("SpawnMonster");
+        GetComponent<Animator>().SetTrigger("Spawn");
+        yield return new WaitForSeconds(GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length / 40);
+        GetComponent<Animator>().SetTrigger("Idle");
+        //GetComponent<Animator>().Play("Idle");
         _spawnCoroutine = null;
     }
 }

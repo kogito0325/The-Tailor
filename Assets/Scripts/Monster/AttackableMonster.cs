@@ -27,6 +27,12 @@ public class AttackableMonster : Monster
         }
     }
 
+    public override void Hit(int damage = 1)
+    {
+        base.Hit(damage);
+        _animator.SetBool("isLow", transform.position.y < 0);
+    }
+
     private bool CheckPlayerPosition(Transform playerTransform, out float playerPosY)
     {
         playerPosY = playerTransform.position.y >= transform.position.y ? 1 : -1;
