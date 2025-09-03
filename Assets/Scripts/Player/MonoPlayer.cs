@@ -112,6 +112,13 @@ public class MonoPlayer : MonoBehaviour, IHittable
         enabled = false;
         gameObject.layer = LayerMask.NameToLayer("Evasion");
         _animController.SetAnimState(PlayerAnimState.Die);
+        _rigidbody2D.linearDamping = 0;
+        _rigidbody2D.angularDamping = 0;
+        _rigidbody2D.gravityScale = 0;
+        _rigidbody2D.constraints = RigidbodyConstraints2D.None;
+        _rigidbody2D.AddForce((Vector2.up * 2f + Vector2.left) * 5f, ForceMode2D.Impulse);
+        _rigidbody2D.AddTorque(180f);
+
         SoundManager.Instance.PlaySound((int)SoundHelper.Sound.PlayerDead);
         EffectManager.Instance.PlayEffect(transform, (int)MonoEffect.Type.PlayerDead);
     }
