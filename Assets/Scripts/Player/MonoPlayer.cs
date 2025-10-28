@@ -74,6 +74,9 @@ public class MonoPlayer : MonoBehaviour, IHittable
 
         if(_attackCoolTimer > 0)
             _attackCoolTimer -= Time.deltaTime;
+
+        if (GameManager.Instance.CurrentGameMode == GameMode.Challenge && Hp > 0)
+            FindAnyObjectByType<ChallengeManager>().AddScore(PlayerData.scorePerSec * Time.deltaTime);
     }
 
     public void Hit(int damage = 1)
@@ -121,6 +124,8 @@ public class MonoPlayer : MonoBehaviour, IHittable
 
         SoundManager.Instance.PlaySound((int)SoundHelper.Sound.PlayerDead);
         EffectManager.Instance.PlayEffect(transform, (int)MonoEffect.Type.PlayerDead);
+
+        FindAnyObjectByType<ChallengeManager>().EndProcess();
     }
 
     private IEnumerator Evasion()

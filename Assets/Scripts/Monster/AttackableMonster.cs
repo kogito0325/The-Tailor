@@ -14,7 +14,8 @@ public class AttackableMonster : Monster
         _animator = GetComponent<Animator>();
         _isAttacked = false;
 
-        FindAnyObjectByType<MonoBoss>().AddStream();
+        if (GameManager.Instance.CurrentGameMode == GameMode.Casual)
+            FindAnyObjectByType<MonoBoss>().AddStream();
     }
 
     protected override void Update()

@@ -46,7 +46,10 @@ public class Monster : MonoHittableObject
     {
         _isDead = true;
         _collider2D.enabled = false;
-        FindAnyObjectByType<MonoBoss>().TakeDamage(1);
+        if (GameManager.Instance.CurrentGameMode == GameMode.Casual)
+            FindAnyObjectByType<MonoBoss>().TakeDamage(1);
+        else if (GameManager.Instance.CurrentGameMode == GameMode.Challenge)
+            FindAnyObjectByType<ChallengeManager>().AddScore(monsterData.score);
     }
 
 

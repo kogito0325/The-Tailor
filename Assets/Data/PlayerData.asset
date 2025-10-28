@@ -18,3 +18,4 @@ MonoBehaviour:
   evasionTime: 1
   linearDamping: 2
   gravityScale: 8
+  scorePerSec: 2

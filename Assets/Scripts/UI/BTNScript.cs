@@ -6,4 +6,9 @@ public class BTNScript : MonoBehaviour
     {
         GameManager.Instance.QuitGame();
     }
+
+    public void RemoveRecord()
+    {
+        GameManager.Instance.RemoveHighRecord();
+    }
 }

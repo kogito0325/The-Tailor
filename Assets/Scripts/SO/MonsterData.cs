@@ -5,4 +5,5 @@ public class MonsterData : ScriptableObject
 {
     [Header("체력")] public int hp;
     [Header("속도")] public float speed;
+    [Header("점수")] public float score;
 }

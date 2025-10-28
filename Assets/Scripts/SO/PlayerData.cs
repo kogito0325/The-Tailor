@@ -9,4 +9,5 @@ public class PlayerData : ScriptableObject
     [Header("무적시간(초)")] public float evasionTime;
     [Header("공기저항")] public float linearDamping;
     [Header("중력 배수")] public float gravityScale;
+    [Header("초당 점수 증가량")] public float scorePerSec;
 }
